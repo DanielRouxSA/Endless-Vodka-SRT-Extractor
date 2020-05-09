@@ -2,3 +2,9 @@
 
 # IDE0055: Fix formatting
 dotnet_diagnostic.IDE0055.severity = none
+
+# CA1031: Do not catch general exception types
+dotnet_diagnostic.CA1031.severity = none
+
+# IDE0057: Use range operator
+csharp_style_prefer_range_operator = true:none
