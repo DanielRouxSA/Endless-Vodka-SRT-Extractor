@@ -4,29 +4,25 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
-namespace SRTExtract
+namespace EndlessVodkaSRTExtractor
 {
     class Program
     {
         static void Main()
         {
-            Console.WriteLine("Hello and welcome to the most glorious SRT extractor the world has ever seen!");
-            Console.WriteLine();
+            CustomConsole.WriteLineWithBreak("Hello and welcome to the most glorious SRT extractor the world has ever seen!");
 
-            Console.WriteLine("Behold, the mighty >>> Endless Vodka SRT Converter <<< ");
-            Console.WriteLine();
+            CustomConsole.WriteLineWithBreak("Behold, the mighty >>> Endless Vodka SRT Converter <<< ");
 
             string currentDirectory = Directory.GetCurrentDirectory();
             string? ffmpegOrigin    = Directory.GetFiles(currentDirectory, searchPattern: "ffmpeg.exe", searchOption: SearchOption.TopDirectoryOnly).FirstOrDefault();
             if (string.IsNullOrEmpty(ffmpegOrigin))
             {
-                Console.WriteLine("ffmpeg.exe not found!");
-                Console.ReadLine();
+                CustomConsole.WriteLineWithBreak("ffmpeg.exe not found!");
                 return;
             }
 
-            Console.WriteLine("Enter a directory that contains your MKV files, or leave blank to use the current directory:");
-            Console.WriteLine();
+            CustomConsole.WriteLineWithBreak("Enter a directory that contains your MKV files, or leave blank to use the current directory:");
 
             string inputDirectory = Console.ReadLine();
 
@@ -46,8 +42,7 @@ namespace SRTExtract
 
             if (Directory.Exists(workingDirectory) == false)
             {
-                Console.WriteLine("Directory doesn't exist");
-                Console.ReadLine();
+                CustomConsole.WriteLineWithBreak("Directory doesn't exist");
                 return;
             }
 
@@ -61,24 +56,20 @@ namespace SRTExtract
                                                            searchPattern: "*.mkv",
                                                            searchOption: SearchOption.TopDirectoryOnly);
 
-            Console.WriteLine($"Found {files.Count()} .mkv files");
-            Console.WriteLine();
+            CustomConsole.WriteLineWithBreak($"Found {files.Count()} .mkv files");
 
 
             foreach (string file in files)
             {
-                Console.WriteLine($"Starting to process \"{Path.GetFileName(file)}\"");
-                Console.WriteLine();
+                CustomConsole.WriteLineWithBreak($"Starting to process \"{Path.GetFileName(file)}\"");
 
                 string subtitleFile = $"{file.Substring(0, file.Length - 4)}.srt";
-                Console.WriteLine($"Subtitle file name: \"{subtitleFile}\"");
-                Console.WriteLine();
+                CustomConsole.WriteLineWithBreak($"Subtitle file name: \"{subtitleFile}\"");
 
                 string subtitleFilePath = Path.Combine(workingDirectory, subtitleFile);
 
                 string command = $"/C ffmpeg -i \"{file}\" \"{subtitleFilePath}\"";
-                Console.WriteLine($"Command: \"{command}\"");
-                Console.WriteLine();
+                CustomConsole.WriteLineWithBreak($"Command: \"{command}\"");
 
                 Process process = Process.Start("CMD.exe", command);
                 process.WaitForExit();
@@ -98,8 +89,7 @@ namespace SRTExtract
             string minutes  = elapsedTime.Minutes   >= 10 ? $"{elapsedTime.Minutes}"    : $"0{elapsedTime.Minutes}";
             string seconds  = elapsedTime.Seconds   >= 10 ? $"{elapsedTime.Seconds}"    : $"0{elapsedTime.Seconds}";
 
-            Console.WriteLine($"Finished - elapsed time: {hours}:{minutes}:{seconds}");
-            Console.WriteLine();
+            CustomConsole.WriteLineWithBreak($"Finished - elapsed time: {hours}:{minutes}:{seconds}");
 
             Console.ReadLine();
         }
@@ -116,13 +106,11 @@ namespace SRTExtract
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
-                Console.ReadLine();
+                CustomConsole.WriteLineWithBreak(e.Message);
                 return false;
             }
 
-            Console.WriteLine($"Copied {file}");
-            Console.WriteLine();
+            CustomConsole.WriteLineWithBreak($"Copied {file}");
             return true;
         }
 
@@ -137,13 +125,11 @@ namespace SRTExtract
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
-                Console.ReadLine();
+                CustomConsole.WriteLineWithBreak(e.Message);
                 return false;
             }
 
-            Console.WriteLine($"Deleted {file}");
-            Console.WriteLine();
+            CustomConsole.WriteLineWithBreak($"Deleted {file}");
             return true;
         }
     }
