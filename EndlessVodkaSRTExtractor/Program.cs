@@ -24,14 +24,14 @@ namespace EndlessVodkaSRTExtractor
 
             CustomConsole.WriteLineWithBreak("Enter a directory that contains your MKV files, or leave blank to use the current directory:");
 
-            string inputDirectory = Console.ReadLine();
+            string? inputDirectory = Console.ReadLine();
 
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
             string workingDirectory;
 
-            if (string.IsNullOrEmpty(inputDirectory))
+            if (string.IsNullOrWhiteSpace(inputDirectory))
             {
                 workingDirectory = currentDirectory;
             }
